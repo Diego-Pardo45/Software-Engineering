@@ -11,12 +11,3 @@ export const PASSWORD = process.env.DB_PASSWORD;
 export const DATABASE = process.env.DATABASE;
 export const JWT_SECRET = process.env.JWT_SECRET;
 export const cookieKey = process.env.COOKIE_KEY;
-
-console.log('=== DEBUG DATABASE CONFIG ===');
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_USERNAME:', process.env.DB_USERNAME);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD ? '[HIDDEN]' : 'UNDEFINED');
-console.log('DATABASE:', process.env.DATABASE);
-console.log('HOST variable:', HOST);
-console.log('DB_PORT:', DB_PORT);
-console.log('===============================');
