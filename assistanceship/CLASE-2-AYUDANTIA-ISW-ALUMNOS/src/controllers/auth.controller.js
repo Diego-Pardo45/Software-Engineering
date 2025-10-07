@@ -1,15 +1,17 @@
 import { loginUser } from "../services/auth.service.js";
 import { createUser } from "../services/user.service.js";
 import { handleSuccess, handleErrorClient, handleErrorServer } from "../Handlers/responseHandlers.js";
+import { authUserBodyValidation } from "../validations/usuario.validation.js";
 
 export async function login(req, res) {
   try {
     const { email, password } = req.body;
-    
-    if (!email || !password) {
-      return handleErrorClient(res, 400, "Email y contraseña son requeridos");
+
+    const {error} = authUserBodyValidation.validate({ email, password });
+    if (error) {
+      return handleErrorClient(res, 400, "Error al ingresar parametros", error.message);
     }
-    
+
     const data = await loginUser(email, password);
     handleSuccess(res, 200, "Login exitoso", data);
   } catch (error) {
@@ -20,9 +22,11 @@ export async function login(req, res) {
 export async function register(req, res) {
   try {
     const data = req.body;
+    const { email, password } = data;
     
-    if (!data.email || !data.password) {
-      return handleErrorClient(res, 400, "Email y contraseña son requeridos");
+    const {error} = authUserBodyValidation.validate({ email, password });
+    if (error) {
+      return handleErrorClient(res, 400, "Error al ingresar parametros", error.message);
     }
     
     const newUser = await createUser(data);
@@ -36,5 +40,3 @@ export async function register(req, res) {
     }
   }
 }
-
-//a
