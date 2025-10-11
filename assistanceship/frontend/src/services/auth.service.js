@@ -1,11 +1,11 @@
-import axios from './root.service.js';
+import instance from './root.service.js';
 import cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 
 export async function login(dataUser) {
     try {
         const { email, password } = dataUser;
-        const response = await axios.post('/auth/login', {
+        const response = await instance.post('/auth/login', {
             email,
             password
         });
@@ -17,20 +17,22 @@ export async function login(dataUser) {
         
         return response.data;
     } catch (error) {
-        return error.response?.data || { message: 'Error al conectar con el servidor' };
+        console.log("error al iniciar sesión", error);
+        throw error;
     }
 }
 
 export async function register(data) {
     try {
         const { email, password } = data;
-        const response = await axios.post('/auth/register', {
+        const response = await instance.post('/auth/register', {
             email,
             password
         });
         return response.data;
     } catch (error) {
-        return error.response?.data || { message: 'Error al conectar con el servidor' };
+        console.log("error al registrar usuario", error);
+        throw error;
     }
 }
 
