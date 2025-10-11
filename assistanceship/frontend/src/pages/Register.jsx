@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/auth.service';
+import { register } from '../services/auth.service';
 
-const Login = () => {
+const Register = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -10,10 +10,10 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await login({ email, password });
+            await register({ email, password });
             navigate('/home');
         } catch (error) {
-            console.log('Error al iniciar sesión:', error.message);
+            console.log('Error al registrar usuario:', error.message);
         }
     };    
     
@@ -21,8 +21,8 @@ const Login = () => {
         <div className="min-h-screen bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 w-full max-w-md transform transition-all hover:scale-105">
                 <form className="space-y-6" onSubmit={handleSubmit}>
-                    <h1 className="text-4xl font-bolPd text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-8">
-                        Iniciar sesión
+                    <h1 className="pb-1 text-4xl font-bolPd text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-8">
+                        Registrarse
                     </h1>
                     
                     <div className="space-y-2">
@@ -54,19 +54,18 @@ const Login = () => {
                             className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 transition-all duration-300"
                         />
                     </div>
-
                     <button 
                         type="submit" 
                         className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-300"
                     >
-                        Iniciar sesión
+                        Registrarse
                     </button>
                 </form>
                 <div className="text-center mt-6">
                     <p className="text-sm text-gray-600">
-                        ¿No tienes una cuenta?{' '}
-                        <button onClick={() => navigate('/register')} className="font-medium text-indigo-600 hover:text-indigo-500">
-                            Regístrate!
+                        ¿Ya tienes una cuenta?{' '}
+                        <button onClick={() => navigate('/')} className="font-medium text-indigo-600 hover:text-indigo-500">
+                            Inicia sesión
                         </button>
                     </p>
                 </div>
@@ -75,4 +74,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Register;
